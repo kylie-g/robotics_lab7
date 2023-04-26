@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+#CODE BASED OFF OF: https://github.com/hsaeidi-uncw/robot_control_lectures/tree/main/scripts
+
 import rospy
 import math
 # import the messages for reading the joint positions and sending joint commands
@@ -13,7 +15,7 @@ if __name__ == '__main__':
 	# initialize the node
 	rospy.init_node('manual_initialization', anonymous = True)
 	# add a publisher for sending joint position commands
-	pos_pub = rospy.Publisher('/pos_joint_traj_controller/command', JointTrajectory, queue_size = 10)
+	pos_pub = rospy.Publisher('/scaled_pos_joint_traj_controller/command', JointTrajectory, queue_size = 10)
 	# set a 10Hz frequency for this loop
 	loop_rate = rospy.Rate(10)
 
@@ -42,6 +44,8 @@ if __name__ == '__main__':
 	pos_cmd_point.positions[1] = -math.pi/4
 	# just change the value of the command for the elbow joint
 	pos_cmd_point.positions[0] = math.pi/4
+	# just change the value of the command for the elbow pan joint
+	pos_cmd_point.positions[2] = math.pi/2
 	# add the trajectory point to the command
 	pos_cmd.points.append(pos_cmd_point)
 	# define a message header	
